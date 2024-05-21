@@ -1,25 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import homeMovies from './movies.json';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+
+const NavBar = () => {
+  const [LoggedIn, setLoggedIn] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <nav>
+      <h1>Assignment 1</h1>
+
+      <button onClick={() => setLoggedIn(!LoggedIn)}>
+        {LoggedIn ? 'Logout' : 'Login'}
+      </button>
+
+      <p>/\/\/\This button is bootstrap</p>
+
+      <MovieList movies={homeMovies.movies}></MovieList>
+
+
+    </nav>
+  );
+};
+
+
+const MovieList = ({ movies }) => {
+  return (
+    <>
+    <h2>Movies:</h2>
+      {movies.map((movie, index) => (
+        <Movie key={index} info={movie} />
+      ))}
+    </>
+  );
+};
+
+function Movie({info}) {
+  return (
+  <>
+    <h3>{info.name}</h3>
+    <p>Year: {info.year}</p>
+    <p>Rating: {info.rating}</p>
+    <br></br>
+  </>
   );
 }
 
-export default App;
+export default NavBar;
